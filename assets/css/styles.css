@@ -1,0 +1,36 @@
+.container {
+    margin: 0 auto;
+    width: 300px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.break {
+    float: left;
+    text-align: center;
+}
+
+.length {
+    float: right;
+    text-align: center;
+}
+
+/*.break > .breakMinus,*/
+/*.length > .sessionMinus {*/
+    /*float: left;*/
+/*}*/
+
+/*.break > .breakPlus,*/
+/*.length > .sessionPlus {*/
+    /*float: right;*/
+/*}*/
+
+
+
+.clock {
+    margin: 0 auto;
+    text-align: center;
+
+}
