@@ -40,6 +40,7 @@ sessionPlus.addEventListener("click", function() {
 
 clock.addEventListener("click", function() {
    console.log('Clock was clicked!');
+   clockSet((60 * sessionSetInt), breakSetInt);
 });
 
 
@@ -50,6 +51,25 @@ function displayUpdate() {
     sessionTime.textContent = sessionSetInt;
 }
 
-function clock(sessionLength, breakLength) {
+// start clock
+function clockSet(duration, breakDur) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
 
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+
+        sessionTime.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
 }
