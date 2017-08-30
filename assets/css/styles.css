@@ -30,7 +30,11 @@ h1 {
 
 
 .clock {
-    margin: 0 auto;
+    height: 130px;
+    width: 150px;
+    padding-top: 20px;
+    margin: 200px auto 0;
     text-align: center;
-
+    border: 1px solid grey;
+    border-radius: 50%;
 }
