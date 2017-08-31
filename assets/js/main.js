@@ -4,21 +4,24 @@ var sessionTime = document.querySelector('.timer');
 
 var breakSetInt = parseInt(document.querySelector('div.breakCtrl p').innerText);
 var sessionSetInt = parseInt(document.querySelector('div.sessionCtrl p').innerText);
-var displayHeader = document.querySelector('.clock h2');
+var title = document.querySelector('.clock h2');
 var pause = false;
+var seconds = 0;
+var minutes = 25;
+var startTimer;
 
 const breakMinus = document.querySelector('.breakMinus');
 const breakPlus = document.querySelector('.breakPlus');
 const sessionMinus = document.querySelector('.sessionMinus');
 const sessionPlus = document.querySelector('.sessionPlus');
 const clock = document.querySelector('.clock');
+const audio = document.querySelector('audio');
 
 
 breakMinus.addEventListener("click", function() {
     console.log('breakMinus was clicked!');
     breakSetInt--;
     breakSet.textContent = breakSetInt;
-
 });
 
 breakPlus.addEventListener("click", function() {
@@ -41,15 +44,13 @@ sessionPlus.addEventListener("click", function() {
 
 clock.addEventListener("click", function() {
    console.log('Clock was clicked!');
-
-   if (pause === false) {
-       clockSet((60 * sessionSetInt), breakSetInt);
-       pause = true;
-   } else if (pause === true) {
-       pause = false;
-   }
-
-   clockSet((60 * sessionSetInt), breakSetInt);
+    if (pause === false) {
+        startTimer = setInterval(timer, 1000);
+        pause = true;
+    } else if (pause === true) {
+        clearInterval(startTimer);
+        pause = false;
+    }
 });
 
 
@@ -58,36 +59,31 @@ function displayUpdate() {
     sessionSet.textContent = sessionSetInt;
     breakSet.textContent = breakSetInt;
     sessionTime.textContent = sessionSetInt;
+    minutes = sessionSetInt;
 }
 
-// start clock
-function clockSet(duration, breakDur) {
-    var breakCheck = false;
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+// timer function, controls countdown and session-to-break switching
+function timer(){
+    if(minutes === 0 && seconds === 1){
+        audio.play();
+    }
 
-        if (minutes < 10) {
-            minutes = "0" + minutes;
+    if(minutes === 0 && seconds === 0){
+        if(title.textContent === 'Session'){
+            title.textContent = 'Break';
+            minutes = breakSetInt;
+            sessionTime.textContent = minutes + ":0" + seconds;
+        } else if (title.textContent === 'Break') {
+            title.textContent = 'Session';
+            minutes = sessionSetInt;
+            sessionTime.textContent = minutes + ":0" + seconds;
         }
-
-        if (seconds < 10) {
-            seconds = "0" + seconds;
+    } else {
+        if(seconds === 0){seconds = 60; minutes--}
+        seconds--;
+        if(seconds < 10){sessionTime.textContent = minutes + ":0" + seconds;}
+        else{
+            sessionTime.textContent = minutes + ":" + seconds;
         }
-
-        sessionTime.textContent = minutes + ":" + seconds;
-
-        if (--timer < 0) {
-            if (!breakCheck) {
-                timer = 60 * breakDur;
-                breakCheck = true;
-                displayHeader.textContent = "Break";
-            } else if (breakCheck) {
-                timer = duration;
-                breakCheck = false;
-                displayHeader.textContent = "Session";
-            }
-        }
-    }, 1000);
+    }
 }
