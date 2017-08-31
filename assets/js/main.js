@@ -4,7 +4,8 @@ var sessionTime = document.querySelector('.timer');
 
 var breakSetInt = parseInt(document.querySelector('div.breakCtrl p').innerText);
 var sessionSetInt = parseInt(document.querySelector('div.sessionCtrl p').innerText);
-var sessionTimeInt = parseInt(document.querySelector('.timer').innerText);
+var displayHeader = document.querySelector('.clock h2');
+var pause = false;
 
 const breakMinus = document.querySelector('.breakMinus');
 const breakPlus = document.querySelector('.breakPlus');
@@ -40,6 +41,14 @@ sessionPlus.addEventListener("click", function() {
 
 clock.addEventListener("click", function() {
    console.log('Clock was clicked!');
+
+   if (pause === false) {
+       clockSet((60 * sessionSetInt), breakSetInt);
+       pause = true;
+   } else if (pause === true) {
+       pause = false;
+   }
+
    clockSet((60 * sessionSetInt), breakSetInt);
 });
 
@@ -53,9 +62,10 @@ function displayUpdate() {
 
 // start clock
 function clockSet(duration, breakDur) {
+    var breakCheck = false;
     var timer = duration, minutes, seconds;
     setInterval(function () {
-        minutes = parseInt(timer / 60, 10)
+        minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
         if (minutes < 10) {
@@ -69,7 +79,15 @@ function clockSet(duration, breakDur) {
         sessionTime.textContent = minutes + ":" + seconds;
 
         if (--timer < 0) {
-            timer = duration;
+            if (!breakCheck) {
+                timer = 60 * breakDur;
+                breakCheck = true;
+                displayHeader.textContent = "Break";
+            } else if (breakCheck) {
+                timer = duration;
+                breakCheck = false;
+                displayHeader.textContent = "Session";
+            }
         }
     }, 1000);
 }
