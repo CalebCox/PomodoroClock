@@ -1,10 +1,35 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    color: #fff;
+    background: linear-gradient(45deg, rgba(106,150,176,1) 0%, rgba(139,198,232,1) 100%);
+    background-repeat: no-repeat;
+}
+
 .container {
     margin: 0 auto;
     width: 300px;
 }
 
+.breakCtrl > p,
+.sessionCtrl > p {
+    font-size: 2em;
+    margin: 0;
+}
+
+button {
+    border: none;
+    background: none;
+    color: #fff;
+    font-size: 1.5em;
+}
+
 h1 {
     text-align: center;
+    font-weight: bold;
 }
 
 .break {
@@ -17,24 +42,22 @@ h1 {
     text-align: center;
 }
 
-/*.break > .breakMinus,*/
-/*.length > .sessionMinus {*/
-    /*float: left;*/
-/*}*/
-
-/*.break > .breakPlus,*/
-/*.length > .sessionPlus {*/
-    /*float: right;*/
-/*}*/
-
-
-
 .clock {
-    height: 130px;
-    width: 150px;
-    padding-top: 20px;
-    margin: 200px auto 0;
+    height: 250px;
+    width: 250px;
+    margin: 250px auto 0;
     text-align: center;
-    border: 1px solid grey;
+    border: 2px solid #fff;
     border-radius: 50%;
+}
+
+h2 {
+    font-size: 2em;
+    margin-top: 88px;
+    margin-bottom: 0;
+}
+
+.timer {
+    font-size: 2em;
+    margin: 0;
 }
